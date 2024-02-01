@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "datasource",
+  "name": "A11y Tracker Datasource",
+  "id": "ckbedwell-a11y-datasource",
+  "backend": true,
+  "executable": "gpx_grafana_a11y",
+  "info": {
+    "description": "A datasource for tracking a11y issues.",
+    "author": {
+      "name": "ckbedwell"
+    },
+    "keywords": ["datasource"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=10.0.3",
+    "plugins": []
+  }
+}
