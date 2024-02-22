@@ -1,11 +1,11 @@
 import { SceneFlexLayout, SceneFlexItem, PanelBuilders, SceneDataTransformer } from '@grafana/scenes';
-import { WCAGExplainer } from 'app/pages/Home/VizPanels/WCAGExplainer';
-import { WCAGLevelsOverview } from 'app/pages/Home/VizPanels/WCAGLevelsOverview';
+import { WCAGExplainer } from 'app/ScenesComponents/WCAGExplainer';
+import { WCAGLevelsOverview } from 'app/ScenesComponents/WCAGLevelsOverview';
 import { VizOrientation } from '@grafana/data';
 import { pickQueries } from 'app/dataTransformations/pickQueries';
 
 import { convertStringForRegex } from 'app/utils/utils.data';
-import { Title } from 'app/pages/Home/VizPanels/Title';
+import { Title } from 'app/ScenesComponents/Title';
 import { TRANSFORM_LABELS_COUNT_REF, WCAG_LABEL_PREFIX } from 'app/constants';
 
 export function WCAGRow(sceneData: SceneDataTransformer) {

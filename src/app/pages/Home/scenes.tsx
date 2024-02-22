@@ -22,10 +22,12 @@ import {
   REQUEST_ISSUES_OPEN_REF,
 } from 'app/constants';
 import { getAll } from 'app/dataTransformations/getAll';
-import { Labels } from 'app/pages/Home/ScenesPanels/Labels';
-import { WCAGRow } from 'app/pages/Home/ScenesPanels/WCAGRow';
-import { VelocityRow } from 'app/pages/Home/ScenesPanels/VelocityRow';
-import { SelectIssues } from 'app/pages/Home/VizPanels/SelectIssues';
+import { Labels } from 'app/ScenesPanels/Labels';
+import { WCAGRow } from 'app/ScenesPanels/WCAGRow';
+import { VelocityRow } from 'app/ScenesPanels/VelocityRow';
+import { SelectIssues } from 'app/ScenesComponents/SelectIssues';
+import { HelperDrawer } from 'app/ScenesComponents/HelperDrawer';
+// import { LabelToggle } from 'app/ScenesComponents/LabelToggle';
 
 const repoOptions = {
   'grafana/grafana': `grafana/grafana`,
@@ -39,6 +41,9 @@ export function getBasicScene() {
   const VAR_PROJECT = `project`;
   const VAR_PROJECT_INTERPOLATE = `\${${VAR_PROJECT}}`;
 
+  const VAR_LABEL = `labels`;
+  const VAR_LABEL_INTERPOLATE = `\${${VAR_LABEL}}`;
+
   const project = new CustomVariable({
     name: VAR_PROJECT,
     label: 'Project to show',
@@ -48,6 +53,14 @@ export function getBasicScene() {
       .join(`, `),
   });
 
+  const labels = new CustomVariable({
+    name: VAR_LABEL,
+    label: 'Labels to show',
+    value: 'chris',
+    isMulti: true,
+    hide: 2,
+  });
+
   const queryRunner = new SceneQueryRunner({
     datasource: DATASOURCE_REF,
     queries: [
@@ -55,25 +68,25 @@ export function getBasicScene() {
         refId: REQUEST_MAIN_QUERY_REF,
         queryType: `issues_all`,
         project: VAR_PROJECT_INTERPOLATE,
-        labels: '${labelDrilldown}',
+        labels: VAR_LABEL_INTERPOLATE,
       },
       {
         refId: REQUEST_ISSUES_CREATED_REF,
         queryType: `issues_created`,
         project: VAR_PROJECT_INTERPOLATE,
-        labels: '${labelDrilldown}',
+        labels: VAR_LABEL_INTERPOLATE,
       },
       {
         refId: REQUEST_ISSUES_CLOSED_REF,
         queryType: `issues_closed`,
         project: VAR_PROJECT_INTERPOLATE,
-        labels: '${labelDrilldown}',
+        labels: VAR_LABEL_INTERPOLATE,
       },
       {
         refId: REQUEST_ISSUES_OPEN_REF,
         queryType: `issues_open`,
         project: VAR_PROJECT_INTERPOLATE,
-        labels: '${labelDrilldown}',
+        labels: VAR_LABEL_INTERPOLATE,
       },
     ],
   });
@@ -82,15 +95,27 @@ export function getBasicScene() {
 
   return new EmbeddedScene({
     $timeRange: timeRange,
-    $variables: new SceneVariableSet({ variables: [project] }),
+    $variables: new SceneVariableSet({ variables: [project, labels] }),
     $data: sceneData,
     controls: [
-      new VariableValueSelectors({}),
-      new SceneControlsSpacer(),
-      new SceneTimePicker({}),
-      new SceneRefreshPicker({
-        intervals: ['30m', '1h'],
-        isOnCanvas: true,
+      new SceneFlexLayout({
+        direction: 'column',
+        children: [
+          new SceneFlexLayout({
+            children: [
+              new VariableValueSelectors({}),
+              new SceneControlsSpacer(),
+              new SceneTimePicker({}),
+              new SceneRefreshPicker({
+                intervals: ['30m', '1h'],
+                isOnCanvas: true,
+              }),
+            ],
+          }),
+          // new LabelToggle({
+          //   // labels,
+          // }),
+        ],
       }),
     ],
     body: new SceneFlexLayout({
@@ -104,6 +129,7 @@ export function getBasicScene() {
           minHeight: 600,
           body: PanelBuilders.table().setTitle(VAR_PROJECT_INTERPOLATE).build(),
         }),
+        new HelperDrawer({}),
       ],
     }),
   });

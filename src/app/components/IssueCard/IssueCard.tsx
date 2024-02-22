@@ -9,7 +9,7 @@ import { Stack } from 'app/components/Stack';
 
 type IssueCardProps = {
   issue: Issue | null;
-  type: string;
+  type?: string;
 };
 
 export const IssueCard = ({ issue, type }: IssueCardProps) => {
@@ -22,7 +22,7 @@ export const IssueCard = ({ issue, type }: IssueCardProps) => {
         <Stack justifyContent={`space-between`} direction={`column`}>
           <Stack direction={`column`}>
             <Stack justifyContent={`space-between`}>
-              <div className={styles.type}>{type}</div>
+              {type && <div className={styles.type}>{type}</div>}
               <div>
                 {issue.reactions} {`reaction${issue.reactions === 1 ? `` : `s`}`}
               </div>

@@ -7,6 +7,8 @@ import { DATASOURCE_REF, ROUTES } from '../../constants';
 import { config } from '@grafana/runtime';
 import { Alert } from '@grafana/ui';
 
+import { DrawerContextProvider } from 'app/Contexts';
+
 const getScene = () => {
   return new SceneApp({
     pages: [
@@ -37,7 +39,9 @@ export const HomePage = () => {
         </Alert>
       )}
 
-      <scene.Component model={scene} />
+      <DrawerContextProvider>
+        <scene.Component model={scene} />
+      </DrawerContextProvider>
     </>
   );
 };

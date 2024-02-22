@@ -31,10 +31,7 @@ export class DataSource extends DataSourceWithBackend<MyQuery, MyDataSourceOptio
 
     if (query.labels) {
       const labelsStr = this.templateSrv.replace(query.labels, scopedVars);
-      const labels = labelsStr
-        .slice(1, -1)
-        .split(',')
-        .map((label: string) => label.trim());
+      const labels = labelsStr.split(',').map((label: string) => label.trim());
       newQuery.labels = labels;
     }
 

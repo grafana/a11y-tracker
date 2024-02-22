@@ -6,7 +6,7 @@ import { mergeMap } from 'rxjs/operators';
 import { REQUEST_ISSUES_CLOSED_REF, REQUEST_ISSUES_CREATED_REF, REQUEST_ISSUES_OPEN_REF } from 'app/constants';
 import { getDataFrameFromSeries } from 'app/utils/utils.data';
 import { issuesByDate } from 'app/dataTransformations/getTimeSeriesIssues';
-import { labelDataFrame } from 'app/dataTransformations/getPrefixedLabelsFromIssues';
+import { labelDataFrame } from 'app/dataTransformations/labelDataFrame';
 
 export function getAll(queryRunner: SceneQueryRunner) {
   return new SceneDataTransformer({

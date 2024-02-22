@@ -1,0 +1,1 @@
+export { WCAGLevelBadge } from './WCAGLevelBadge';

@@ -3,8 +3,8 @@ import { TooltipDisplayMode } from '@grafana/schema';
 
 import { pickQueries } from 'app/dataTransformations/pickQueries';
 
-import { IssuesTimeSeriesOverview } from 'app/pages/Home/VizPanels/IssuesTimeSeriesOverview';
-import { Title } from 'app/pages/Home/VizPanels/Title';
+import { IssuesTimeSeriesOverview } from 'app/ScenesComponents/IssuesTimeSeriesOverview';
+import { Title } from 'app/ScenesComponents/Title';
 import { TRANSFORM_ISSUES_CREATED_DATES_COUNT_REF, TRANSFORM_ISSUES_CLOSED_DATES_COUNT_REF } from 'app/constants';
 
 export function VelocityRow(sceneData: SceneDataTransformer) {
